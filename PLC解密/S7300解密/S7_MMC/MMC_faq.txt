@@ -1,0 +1,198 @@
+http://personal.telefonica.terra.es/web/suwe/
+эта программа только для копирования Сименс ММС карт через стандартный "бытовой" считыватель ММС карт, т.е. нет необходимости в использовании программатора для этой цели. 
+В принципе если копать вглубь, то может быть и будет возможно использовать обычную ММС.
+
+
+Siemens S7 MMC eprom utils
+To make a image file of your S7 MMC card place the card in a standard MULTICARD READER (recognized by your Win32 System) and
+start  the S7imgRD.exe. Select the drive letter of the card from the combo box and hit start. 
+If your system ask to format the Card – cancel !do not format! 
+Give a image file name to the save file dialog. Compress the image file and mail it together with the S7imgWR.exe to any place you want or
+just keep the image file for later eprom replication in case you do not have access to the project files. 
+To bring the image file back to a eprom works same way, use the S7imgWR.exe. 
+I have tested the S7imgRD and S7imgWR with 128kb and 512kb. If you experience any difficulties feel free to send me a bug report.
+
+
+Para hacer un imagen de su tajeta S7 MMC poner la tajeta en un lektor multistandard de tajetas memorias. Ejecutar S7imgRD.exe a una 
+plataforma de Win32. Elegir la letra de la unidad de la tajeta. Dar un nombre por el archivo imagen al dialogo guardar. Pulsar boton start. 
+Si la sistema prejuntar por formatear la tajeta, elegir NO! 
+Komprimir el archivo imagen y enviar junto con el programa S7imgWR.exe por cualquier sitio del mundo para reproducir, o guardar el archivo
+por la seguridad si no tienes accesso al projecto. 
+Tengo comprobado el programa con eprom de 128kb y 512kb. Si encuetras complicaciones mandar me un correo.
+
+sogar die Osterreichische Fahne weht gegen den wind
+Um eine image Datei zu erzeugen stecke die S7MMC Karte in einen Multicard Reader. Dann starte die S7imgRD.exe auf einer Win32 Plattform.
+Wahle den Laufwerksbuchstaben der MMC Karte in der Combobox.
+Wenn das System die Karte formatieren will, dies Abbrechen!
+Start klicken, im Datei offnen Dialog einen Dateinamen fur das Image angeben und los gehts.Die Image Datei komprimieren und zusammen mit
+S7imgWR.exe versenden oder einfach das Image als Backup behalten, wenn man kein Projekt hat.
+Die Zuruckfuhrung der Image Datei erfolgt analog mit dem S7imgWR.exe Programm.
+Ich habe 128kb und 512kb eproms getestet. Sollte es doch noch zu Problemen kommen sende mir einfach eine mail.
+ 
+
+freeware - free download, programa libre - descarga libre
+
+S7imgRD.ZIP
+
+S7imgWR.ZIP
+
+
+
+-------- Siemens official FAQ----------------------------------
+Deleting data on an MMC (Micro Memory Card)  
+ 
+ 
+ 
+QUESTION:
+How can I delete the data on am MMC (Micro Memory Card)? 
+
+ANSWER:
+You can use the following procedure to delete the block on an MMC in the CPU: 
+
+The MMC to be deleted is slotted in the CPU. 
+In the SIMATIC Manager, switch to online mode via "View > Online" or by pressing the appropriate button. 
+In the Online window, you select the block folder. 
+Mark all the blocks in the folder. 
+Right-click "Delete" (you can acknowledge the message that system functions cannot be deleted). 
+
+ Entry ID:13992345     Date:12/20/2002 
+--------------------------------------------
+Formatting MMC  
+
+QUESTION:
+Why does the STOP LED flash on my CPU 31xC when the MMC (Micro Memory Card) is slotted? The CPU does not behave like this with other MMCs. 
+
+ANSWER: 
+The MMC in your CPU is not formatted or contains data that cannot be interpreted by this CPU (e.g. the configuration of a different CPU type or an operating system not compatible with the CPU). 
+
+WARNING:
+When you format the MMC all the data that is located on the MMC is deleted! 
+
+Proceed as follows to format the MMC. 
+
+Your CPU requests an overall reset (slow flashing of the STOP LED). 
+Put the switch into the MRES position and hold it there until the STOP LED lights permanently (approx. 9 seconds). 
+You must then release the switch within the next 3 seconds and then put it back into the MRES position. The STOP-LED now flashes during formatting.
+If the MMC cannot be formatted as described above, then the MMC is defective. 
+
+Note:
+Formatting the MMC is only possible, if there is there are invalid data for the CPU located on the MMC. Otherwise, the MMC is only initialized when conducting the described steps. 
+
+More information for the handling of the MMC can be found in the manual "Automation system S7-300, build up CPU31xC and CPU 31x" under entry-ID 13008499. 
+
+
+ Entry ID:10095508     Date:10/29/2003 
+ 
+ --------------------------
+Determining memory requirement of S7-300 MMC  
+ 
+ 
+ 
+QUESTION:
+How can I determine the size of the MMC so that I can store my complete STEP 7 project on it? 
+
+ANSWER:  
+In order to choose the appropriate MMC for your project you need to know the overall size of the project and the size of the blocks to be loaded. You can determine the size of the project as described below:  
+
+First archive your STEP 7 project. Then open the archived project in Windows Explorer and determine its size (select and right-click). This gives you the size of the archived file. 
+
+  
+
+Fig. 1: File properties 
+
+Load your blocks into the CPU. Now you still have to select "PLC > Module Information > Memory". There, in "Load memory RAM + EPROM", you can see the size of the assigned load memory. 
+
+  
+
+Fig. 2:  Load memory 
+
+You must add this value to the size of the archived project you have already determined. This gives you the overall amount of memory required to store your complete project on an MMC. 
+
+ 
+ 
+ Entry ID:14053219     Date:01/08/2003
+
+------------------------------
+S7-300: maximum number of blocks on an MMC or CPU  
+ 
+ 
+ 
+
+
+QUESTION:
+How many blocks can I load on an MMC and how much does this depend on the CPU used? 
+
+ANSWER:
+The maximum number of blocks that you can load is primarily limited by the size of your MMC: 
+
+Type MLFB Max. number of blocks 
+MMC 64KB 6ES7953-8LF00-0AA0 768 
+MMC 128KB 6ES7953-8LG00-0AA0 1024 
+MMC 512KB 6ES7953-8LJ00-0AA0 limited by CPU 
+MMC 2MB 6ES7953-8LL00-0AA0 limited by CPU 
+MMC 4MB 6ES7953-8LM00-0AA0 limited by CPU 
+MMC 8MB 6ES7953-8LP00-0AA0 limited by CPU 
+
+
+Table 1: Maximum number of blocks on an MMC 
+
+In addition you have to pay attention to the quantity structure of the S7-300 CPU. The CPUs can process a maximum of 1024 or 2048 blocks: 
+
+MMC 64KB/128KB: the maximum number of loadable blocks is limited by the MMC. 
+From MMC 512KB the quantity structures of the CPUs are the limits.
+More information on this topic is available in the reference manual "S7-300 Automation System, CPU Specifications: CPU 31xC and CPU 31x", sections 3 and 6 in Entry ID: 12996906 
+
+Keywords:
+MMC, Number of blocks 
+
+
+
+ 
+ 
+ Entry ID:13628154     Date:01/19/2004   
+ 
+=============simatic.nm.ru/phorum==========================
+ MMC от Siemens -- Bodrij -- 2005-07-12 12:53:20 Скажите, кто в курсе, можно ли в контроллерах Сименса использовать другие MMC, а то наши друзья из Сименса просят за 4 мега столько, что простую карту можно на 4 гига за эти деньги купить.
+MMC от Siemens -- Vialij -- 2005-07-12 12:57:47 Поэтому у них и цена такая, что они 4 Гиг переформатируют и делают из них 4 Меги (утрировано).
+MMC от Siemens -- Michael -- 2005-07-12 13:29:51 Нет, к великому сожалению.
+MMC от Siemens -- smsasg -- 2005-07-12 13:49:09 Здесь можно скачать также образы различных типов MMC (правда, за исключением 128Кб, остальные без S7-программ): 
+http://kingleech.ki.funpic.de/wbblite/info_db.php?action=downnow&fileid=9&noheader=0&sid= 
+Если кто-то сможет выслать образы с известным паролем, находящимся в нем, буду признателен.
+MMC от Siemens -- smsasg -- 2005-07-12 13:34:26 Если есть оригинальная MMC, то можно считать ее образ и перешить на бытовую MMC при помощи: 
+http://personal.telefonica.terra.es/web/suwe/
+MMC от Siemens -- Bodrij -- 2005-07-12 16:26:00 Спасибо всем! 
+Очень вовремя, удалось немножко сберечь зеленых президентов.
+MMC от Siemens -- Vialij -- 2005-07-12 17:26:21 Так у вас получилось создать Сименовскую ММС из бытовой или нет? Какого размера брали карту под какой образ?
+MMC от Siemens -- smsasg -- 2005-07-12 17:47:21 Судя по размерам образов, соответствие MMC Card следующее: 
+64Kb - 1.4Mb 
+128Kb - 1.8Mb 
+512Kb - 3.5Mb 
+8Mb - 20Mb 
+
+MMC от Siemens -- Vialij -- 2005-07-12 18:26:26 Тогда где достать карты столь малого размера? Cейчас бытовой минимум 128 мб продают. 
+Реально кто нибудь пробовал?
+MMC от Siemens -- Bodrij -- 2005-07-12 18:40:26 Пока нет. Нет соответствующего железа, но через пару дней будет. Тогда отвечу. 
+Если кто-то реально это делал - подтвердите!
+MMC от Siemens -- smsasg -- 2005-07-12 18:58:28 Из железа нужен Card Reader только. Я копировал 128kB-образ как-то на 32Mb MMC Card от мобильного телефона Siemens S45. Все работает.
+MMC от Siemens -- Roman -- 2005-07-13 07:32:50 А как насчет не MMC, а MC карт ? Можно ли скачать их образ ?
+MMC от Siemens -- smsasg -- 2005-07-13 08:14:47 Наверное, возможно. Но MC Card имеет параллельный интерфейс в отличии от последовательного в MMC, поэтому и алгоритмы работы с ней совершенно другие. 
+MMC от Siemens -- smsasg -- 2005-07-13 10:46:39 Если кому интересно, первые два байта образа несут информацию о размере MMC Card (конечный адрес): например, 
+64Kb 1-й байт 6C 
+2-й байт 0A (OA6C*2=14D800-кон.адрес) 
+128Kb 1-й байт 76 
+2-й байт 0D (OD76*2=1AEC00-кон.адрес) 
+512Kb 1-й байт 3C 
+2-й байт 1A (1A3C*2=347800-кон.адрес) 
+8Mb 1-й байт 34 
+2-й байт 8D (8D34*2=11A6800-кон.адрес) 
+Взято все из образов, считанных вышеупомянутой программой. 
+
+
+
+MMC от Siemens -- Свой -- 2005-07-13 19:22:12 Сделал все по рецепту. MMC 256mB. К сожалению не заработала. Пробовал заливать на нее образ с помощью рекомендуемой утилитки (S7ImgWR.exe) 128,512,8М, результат один, симатик карточку за свою не принимает. Если кто знает посоветуйте что делать. Карточку маленьких размеров не знаю где найти.
+   
+ 
+ 
+
+ 
+ 
