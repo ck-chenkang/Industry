@@ -1,0 +1,25 @@
+最新版MicroWinSP5项目POU密码（非破解）
+
+用下列密码，可以直接打开加了密的POU.
+
+USS V2.0:2BW9 
+MODBUS V1.0:7SH4 
+PID:9W5K 
+NETR/W:4G7S 
+POSITION:4G5K 
+MODEM:W9F3 
+ETHERNET:J6W8 
+ASI:B9W3 
+INTERNET:G6K6 
+
+
+
+
+如有任何不明白的地方可以登录我的网站：http://www.plcjiemi.com/或加我QQ:596181637咨询。
+
+
+电话：13969908936
+ Q Q：596181637
+网址：http://www.plcjiemi.com
+      http://www.pc1098.com
+

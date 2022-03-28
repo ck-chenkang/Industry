@@ -1,0 +1,6 @@
+1、先用第一个文件夹里面的S7imgRD.exe读取MMC卡程序
+2、再用第二个文件夹里面的MMC卡解密解密
+
+
+备注：
+1、文件夹里有个程序Unlock_and_converter_MMC_Image_S7v v4.11，可以将读到的S7img文件转换为wld，然后通过，step7的file  ——》memery open 打开，即可看到源程序，但是没组态
