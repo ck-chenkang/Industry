@@ -1,22 +1,3 @@
-# 看别人项目技巧
-
-## 一、windows启动时，防止Wincc自动启动
-
-1. 重启windows
-2. 在系统打开时，输入：`win + R`
-3. 输入`reset_wincc.vbs`
-
-## 二、启动Wincc，让wincc不运行系统，打开编辑器
-
-双击wincc的小齿轮，按住Ctrl + Shift键不要动
-
-## 三、有的时候需要输入密码才能进入桌面
-
-## 四、OPC UA配置路径
-
-![image-20220323141549021](E:\codes\Industry\Siemens\Wincc\Imag\image-20220323141549021.png)
-
-```xml
 <?xml version="1.0" encoding="utf-8"?> 
 <OPCUA_Server_WinCC xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ua="http://opcfoundation.org/UA/2008/02/Types.xsd" xmlns:s1="http://opcfoundation.org/UA/2011/03/SecuredApplication.xsd">
 
@@ -94,5 +75,3 @@
 </Trace>
 
 </OPCUA_Server_WinCC>
-```
-
