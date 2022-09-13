@@ -75,55 +75,19 @@ focas协议是用来采集fanuc机床的协议，通过以太网进行采集。
 ​    3.连接，通过cnc_allclibhndl3方法进行连接
 
 ```cs
-        private void connection_Click(object sender, EventArgs e)
-
-
-
-        {
-
-
-
-            this.ret = Focas1.cnc_allclibhndl3(ip, Convert.ToUInt16(port), Convert.ToInt32(timeout), out h);
-
-
-
-            if (this.ret != Focas1.EW_OK)
-
-
-
-            {
-
-
-
-                //设备未连接上
-
-
-
-                MessageBox.Show("设备未连接上");
-
-
-
-            }
-
-
-
-            else if (this.ret == Focas1.EW_OK)
-
-
-
-            {
-
-
-
-                MessageBox.Show("设备连接成功");
-
-
-
-            }
-
-
-
-        }
+private void connection_Click(object sender, EventArgs e)
+{
+    this.ret = Focas1.cnc_allclibhndl3(ip, Convert.ToUInt16(port), Convert.ToInt32(timeout), out h);
+    if (this.ret != Focas1.EW_OK)
+    {
+        //设备未连接上
+        MessageBox.Show("设备未连接上");
+    }
+    else if (this.ret == Focas1.EW_OK)
+    {
+        MessageBox.Show("设备连接成功");
+    }
+}
 ```
 
  注意：  
@@ -150,289 +114,83 @@ focas协议是用来采集fanuc机床的协议，通过以太网进行采集。
  坐标：
 
 ```cs
-            Focas1.ODBPOS fos = new Focas1.ODBPOS();
+Focas1.ODBPOS fos = new Focas1.ODBPOS();
+short num = Focas1.MAX_AXIS;
+short type = -1;
+short ret = Focas1.cnc_rdposition(h, type, ref num, fos);
 
-
-
-            short num = Focas1.MAX_AXIS;
-
-
-
-            short type = -1;
-
-
-
-            short ret = Focas1.cnc_rdposition(h, type, ref num, fos);
-
-
-
-            if (ret == 0)
-
-
-
-            {
-
-
-
-                //绝对
-
-
-
-                txtXAbsolutely.Text = (fos.p1.abs.data * Math.Pow(10, -fos.p1.abs.dec)).ToString();
-
-
-
-                txtYAbsolutely.Text = (fos.p2.abs.data * Math.Pow(10, -fos.p2.abs.dec)).ToString();
-
-
-
-                //相对
-
-
-
-                txtXRelative.Text = (fos.p1.rel.data * Math.Pow(10, -fos.p1.rel.dec)).ToString();
-
-
-
-                txtYRelative.Text = (fos.p2.rel.data * Math.Pow(10, -fos.p2.rel.dec)).ToString();
-
-
-
-            }
+if (ret == 0)
+{
+   //绝对
+    txtXAbsolutely.Text = (fos.p1.abs.data * Math.Pow(10, -fos.p1.abs.dec)).ToString();
+    txtYAbsolutely.Text = (fos.p2.abs.data * Math.Pow(10, -fos.p2.abs.dec)).ToString();
+    //相对
+    txtXRelative.Text = (fos.p1.rel.data * Math.Pow(10, -fos.p1.rel.dec)).ToString();
+    txtYRelative.Text = (fos.p2.rel.data * Math.Pow(10, -fos.p2.rel.dec)).ToString();
+}
 ```
 
  系统信息：是
 
 ```cs
-            Focas1.ODBSYS k1 = new Focas1.ODBSYS();
-
-
-
-            ret = Focas1.cnc_sysinfo(h, k1);
-
-
-
-            if (ret == Focas1.EW_OK)
-
-
-
-            {
-
-
-
-                MaxAxis = k1.max_axis.ToString();//最大轴数 
-
-
-
-                this.txtMaxAxis.Text = MaxAxis;
-
-
-
-                string type1 = k1.cnc_type[0].ToString() + k1.cnc_type[1].ToString();//CNC类型
-
-
-
-                #region 机床系统类型判断
-
-
-
-                switch (type1)
-
-
-
-                {
-
-
-
-                    case "15":
-
-
-
-                        CNCType = "Series 15/15i";
-
-
-
-                        break;
-
-
-
-                    case "16":
-
-
-
-                        CNCType = "Series 16/16i";
-
-
-
-                        break;
-
-
-
-                    case "18":
-
-
-
-                        CNCType = "Series 18/18i";
-
-
-
-                        break;
-
-
-
-                    case "21":
-
-
-
-                        CNCType = "Series 21/21i";
-
-
-
-                        break;
-
-
-
-                    case "30":
-
-
-
-                        CNCType = "Series 30i";
-
-
-
-                        break;
-
-
-
-                    case "31":
-
-
-
-                        CNCType = "Series 31i";
-
-
-
-                        break;
-
-
-
-                    case "32":
-
-
-
-                        CNCType = "Series 32i";
-
-
-
-                        break;
-
-
-
-                    case "35":
-
-
-
-                        CNCType = "Series 35i";
-
-
-
-                        break;
-
-
-
-                    case " 0":
-
-
-
-                        CNCType = "Series 0i";
-
-
-
-                        break;
-
-
-
-                    case "PD":
-
-
-
-                        CNCType = "Power Mate i-D";
-
-
-
-                        break;
-
-
-
-                    case "PH":
-
-
-
-                        CNCType = "Power Mate i-H";
-
-
-
-                        break;
-
-
-
-                    case "PM":
-
-
-
-                        CNCType = "Power Motion i";
-
-
-
-                        break;
-
-
-
-                    default:
-
-
-
-                        CNCType = "其它类型";
-
-
-
-                        break;
-
-
-
-                }
-
-
-
-                #endregion
-
-
-
-                this.txtCNCType.Text = CNCType;
-
-
-
-                MTType = k1.mt_type[0].ToString() + k1.mt_type[1].ToString();
-
-
-
-                SerialNumber = k1.series[0].ToString() + k1.series[1].ToString() + k1.series[2].ToString() + k1.series[3].ToString();//CNC型号
-
-
-
-                this.txtSerialNumber.Text = SerialNumber;
-
-
-
-                Version = k1.version[0].ToString() + k1.version[1].ToString() + k1.version[2].ToString() + k1.version[3].ToString();
-
-
-
-                Axis = k1.axes[0].ToString() + k1.axes[1].ToString();
-
-
-
-            }
+Focas1.ODBSYS k1 = new Focas1.ODBSYS();
+ret = Focas1.cnc_sysinfo(h, k1);
+if (ret == Focas1.EW_OK)
+{
+    MaxAxis = k1.max_axis.ToString();//最大轴数 
+    this.txtMaxAxis.Text = MaxAxis;
+    string type1 = k1.cnc_type[0].ToString() + k1.cnc_type[1].ToString();//CNC类型
+    #region 机床系统类型判断
+        switch (type1)
+        {
+            case "15":
+                CNCType = "Series 15/15i";
+                break;
+            case "16":
+                CNCType = "Series 16/16i";
+                break;
+            case "18":
+                CNCType = "Series 18/18i";
+                break;
+            case "21":
+                CNCType = "Series 21/21i";
+                break;
+            case "30":
+                CNCType = "Series 30i";
+                break;
+            case "31":
+                CNCType = "Series 31i";
+                break;
+            case "32":
+                CNCType = "Series 32i";
+                break;
+            case "35":
+                CNCType = "Series 35i";
+                break;
+            case " 0":
+                CNCType = "Series 0i";
+                break;
+            case "PD":
+                CNCType = "Power Mate i-D";
+                break;
+            case "PH":
+                CNCType = "Power Mate i-H";
+                break;
+            case "PM":
+                CNCType = "Power Motion i";
+                break;
+            default:
+                CNCType = "其它类型";
+                break;
+        }
+    #endregion
+        this.txtCNCType.Text = CNCType;
+    MTType = k1.mt_type[0].ToString() + k1.mt_type[1].ToString();
+    SerialNumber = k1.series[0].ToString() + k1.series[1].ToString() + k1.series[2].ToString() + k1.series[3].ToString();//CNC型号
+    this.txtSerialNumber.Text = SerialNumber;
+    Version = k1.version[0].ToString() + k1.version[1].ToString() + k1.version[2].ToString() + k1.version[3].ToString();
+    Axis = k1.axes[0].ToString() + k1.axes[1].ToString();
+}
 ```
 
 
@@ -440,219 +198,207 @@ focas协议是用来采集fanuc机床的协议，通过以太网进行采集。
 设备状态和工作模式：
 
 ```cs
-  Focas1.ODBST statinfo = new Focas1.ODBST();
+Focas1.ODBST statinfo = new Focas1.ODBST();
+ret = Focas1.cnc_statinfo(h, statinfo);
+if (ret == Focas1.EW_OK)
+{
+    //设备状态的判定方法：如果Alarm不为0则有报警。当没有报警时，如果run=3认为是在运行，其他都为待机
 
 
 
-            ret = Focas1.cnc_statinfo(h, statinfo);
+    run = statinfo.run;
 
 
 
-            if (ret == Focas1.EW_OK)
+    Alarm = statinfo.alarm;
 
 
 
-            {
+    //MTMode = statinfo.tmmode;
 
 
 
-                //设备状态的判定方法：如果Alarm不为0则有报警。当没有报警时，如果run=3认为是在运行，其他都为待机
+    if (Alarm != 0)
 
 
 
-                run = statinfo.run;
+        run = 5;//5为设备报警状态
 
 
 
-                Alarm = statinfo.alarm;
+    this.txtDevStatus.Text = run.ToString();
 
 
 
-                //MTMode = statinfo.tmmode;
+    #region 工作模式判断
 
 
 
-                if (Alarm != 0)
+        switch (statinfo.aut)
 
 
 
-                    run = 5;//5为设备报警状态
+        {
 
 
 
-                this.txtDevStatus.Text = run.ToString();
+            case 0:
 
 
 
-                #region 工作模式判断
+                CNCModel = "MDI";
 
 
 
-                switch (statinfo.aut)
+                break;
 
 
 
-                {
+            case 1:
 
 
 
-                    case 0:
+                CNCModel = "MEMory";
 
 
 
-                        CNCModel = "MDI";
+                break;
 
 
 
-                        break;
+            case 2:
 
 
 
-                    case 1:
+                CNCModel = "Not Defined";
 
 
 
-                        CNCModel = "MEMory";
+                break;
 
 
 
-                        break;
+            case 3:
 
 
 
-                    case 2:
+                CNCModel = "EDIT";
 
 
 
-                        CNCModel = "Not Defined";
+                break;
 
 
 
-                        break;
+            case 4:
 
 
 
-                    case 3:
+                CNCModel = "HaNDle";
 
 
 
-                        CNCModel = "EDIT";
+                break;
 
 
 
-                        break;
+            case 5:
 
 
 
-                    case 4:
+                CNCModel = "JOG";
 
 
 
-                        CNCModel = "HaNDle";
+                break;
 
 
 
-                        break;
+            case 6:
 
 
 
-                    case 5:
+                CNCModel = "Teach in JOG";
 
 
 
-                        CNCModel = "JOG";
+                break;
 
 
 
-                        break;
+            case 7:
 
 
 
-                    case 6:
+                CNCModel = "Teach in HaNDle";
 
 
 
-                        CNCModel = "Teach in JOG";
+                break;
 
 
 
-                        break;
+            case 8:
 
 
 
-                    case 7:
+                CNCModel = "INC·feed";
 
 
 
-                        CNCModel = "Teach in HaNDle";
+                break;
 
 
 
-                        break;
+            case 9:
 
 
 
-                    case 8:
+                CNCModel = "REFerence";
 
 
 
-                        CNCModel = "INC·feed";
+                break;
 
 
 
-                        break;
+            case 10:
 
 
 
-                    case 9:
+                CNCModel = "ReMoTe";
 
 
 
-                        CNCModel = "REFerence";
+                break;
 
 
 
-                        break;
+            default:
 
 
 
-                    case 10:
+                CNCModel = "others mode";
 
 
 
-                        CNCModel = "ReMoTe";
+                break;
 
 
 
-                        break;
+        }
 
 
 
-                    default:
+    #endregion
 
 
 
-                        CNCModel = "others mode";
+        this.txtCNCModel.Text = CNCModel.ToString();
 
 
 
-                        break;
-
-
-
-                }
-
-
-
-                #endregion
-
-
-
-                this.txtCNCModel.Text = CNCModel.ToString();
-
-
-
-            }
+}
 ```
 
 
