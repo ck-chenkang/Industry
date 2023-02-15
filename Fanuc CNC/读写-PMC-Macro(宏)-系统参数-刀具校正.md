@@ -92,7 +92,7 @@
 
 ​    
 
-```code
+```csharp
 //這邊我先定義暫存器的編號
     public enum AddrType
     {
